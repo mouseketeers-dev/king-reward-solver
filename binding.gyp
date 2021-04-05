@@ -3,7 +3,10 @@
     {
       'target_name': 'king-reward-solver-native',
       'sources': [ 'src/king_reward_solver.cc', 'src/captcha.cc' ],
-      'include_dirs': ["<!@(node -p \"require('node-addon-api').include\")"],
+      'include_dirs': [
+        "opencv-prebuilt/include",
+        "<!@(node -p \"require('node-addon-api').include\")"
+      ],
       'dependencies': ["<!(node -p \"require('node-addon-api').gyp\")"],
       'cflags!': [ '-fno-exceptions' ],
       'cflags_cc!': [ '-fno-exceptions' ],
@@ -12,25 +15,19 @@
         'VCCLCompilerTool': { 'ExceptionHandling': 1 },
       },
       
+      'link_settings': {
+        'library_dirs': [
+          "opencv-prebuilt/<(OS)/lib"
+        ]
+      },
+      
       'conditions': [
         ['OS=="win"', {
-          'include_dirs': ["opencv-prebuilt/win/include"],
-          'libraries': ["-lopencv_core451", "-lopencv_imgcodecs451", "-lopencv_imgproc451", "-lopencv_ml451"],
-          'link_settings': {
-            'library_dirs': [
-              "opencv-prebuilt/win/lib"
-            ]
-          },
+          'libraries': ["-lopencv_core451", "-lopencv_imgcodecs451", "-lopencv_imgproc451", "-lopencv_ml451"]
         }],
         
         ['OS=="linux"', {
-          'include_dirs': ["opencv-prebuilt/linux/include"],
-          'libraries': ["-lopencv_core", "-lopencv_imgcodecs", "-lopencv_imgproc", "-lopencv_ml"],
-          'link_settings': {
-            'library_dirs': [
-              "opencv-prebuilt/linux/lib"
-            ]
-          },
+          'libraries': ["-lopencv_core", "-lopencv_imgcodecs", "-lopencv_imgproc", "-lopencv_ml"]
         }],
         
         ['OS=="mac"', {
