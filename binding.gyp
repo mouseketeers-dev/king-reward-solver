@@ -14,10 +14,10 @@
       
       'conditions': [
         ['OS=="win"', {
-          'include_dirs': ["../opencv-prebuilt/win/include"],
+          'include_dirs': ["opencv-prebuilt/win/include"],
           'link_settings': {
             'library_dirs': [
-              "../opencv-prebuilt/win/lib"
+              "opencv-prebuilt/win/lib"
             ]
           },
         }],
