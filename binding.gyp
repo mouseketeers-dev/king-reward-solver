@@ -23,7 +23,12 @@
         }],
         
         ['OS=="linux"', {
-
+          'include_dirs': ["opencv-prebuilt/linux/include"],
+          'link_settings': {
+            'library_dirs': [
+              "opencv-prebuilt/linux/lib"
+            ]
+          },
         }],
         
         ['OS=="mac"', {
