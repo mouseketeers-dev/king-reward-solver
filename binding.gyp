@@ -1,3 +1,5 @@
+# How linking works: https://stackoverflow.com/questions/62871714/node-gyp-not-linking-libraries-correctly-on-macos
+# variables: https://github.com/nodejs/node-gyp/issues/1223
 {
   'targets': [
     {
@@ -15,19 +17,21 @@
         'VCCLCompilerTool': { 'ExceptionHandling': 1 },
       },
       
-      'link_settings': {
-        'library_dirs': [
-          "opencv-prebuilt/<(OS)/lib"
-        ]
-      },
-      
       'conditions': [
         ['OS=="win"', {
-          'libraries': ["-lopencv_core451", "-lopencv_imgcodecs451", "-lopencv_imgproc451", "-lopencv_ml451"]
+          'libraries': ["-lopencv_core451", "-lopencv_imgcodecs451", "-lopencv_imgproc451", "-lopencv_ml451"],
+          'link_settings': {
+            'library_dirs': [
+              "opencv-prebuilt/win/lib"
+            ]
+          },
         }],
         
         ['OS=="linux"', {
-          'libraries': ["-lopencv_core", "-lopencv_imgcodecs", "-lopencv_imgproc", "-lopencv_ml"]
+          'libraries': [
+            "-lopencv_core", "-lopencv_imgcodecs", "-lopencv_imgproc", "-lopencv_ml",
+            "-L<(module_root_dir)/opencv-prebuilt/linux/lib/",
+          ]
         }],
         
         ['OS=="mac"', {
