@@ -51,7 +51,12 @@ Value SolveWrapped(const CallbackInfo& info) {
       }
       else if (arg.IsBuffer()) {
         auto buffer = arg.As<Napi::Buffer<char>>();
-        result = Captcha::solve_captcha_buffer(buffer.Data(), buffer.Length());
+        auto buffer_length = buffer.Length();
+        if (buffer_length == 0) {
+          error = "buffer is empty.";
+        } else {
+          result = Captcha::solve_captcha_buffer(buffer.Data(), buffer.Length());
+        }
       }
       else {
         error = "Unknown argument type.";
