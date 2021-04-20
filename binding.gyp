@@ -30,7 +30,7 @@
         ['OS=="linux"', {
           'libraries': [
             "-lopencv_core", "-lopencv_imgcodecs", "-lopencv_imgproc", "-lopencv_ml",
-            "-L<(module_root_dir)/opencv-prebuilt/linux/lib/",
+            "-L<(module_root_dir)/opencv-prebuilt/linux/lib/"
           ]
         }],
         
@@ -40,6 +40,10 @@
             'CLANG_CXX_LIBRARY': 'libc++',
             'MACOSX_DEPLOYMENT_TARGET': '10.7'
           },
+          'libraries': [
+            "-lopencv_core", "-lopencv_imgcodecs", "-lopencv_imgproc", "-lopencv_ml",
+            "-L<(module_root_dir)/opencv-prebuilt/mac/lib/"
+          ]
         }]
       ]
     },
