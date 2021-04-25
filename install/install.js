@@ -14,8 +14,7 @@ function main() {
   const child = child_process.exec(
     "node-gyp rebuild",
     { maxBuffer: Infinity }, function (err, stdout, stderr) {
-      const _err = err || stderr;
-      if (_err) throw(_err);
+      if (err) throw(err);
     }
   );
 
