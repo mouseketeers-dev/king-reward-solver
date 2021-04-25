@@ -12,7 +12,7 @@ function main() {
   log.info("install", "Building king-reward-solver...");
 
   const child = child_process.exec(
-    "npm install --only=dev && node-gyp rebuild",
+    "node-gyp rebuild",
     { maxBuffer: Infinity }, function (err, stdout, stderr) {
       if (err) throw(err);
     }
