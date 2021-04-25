@@ -1,7 +1,7 @@
 const log = require('npmlog');
 const child_process = require('child_process');
 
-const shouldRebuildLibraries = process.env.ENABLE_REBUILD;
+const shouldRebuildLibraries = process.env.KING_REWARD_SOLVER_ENABLE_REBUILD;
 
 function main() {
   if (!shouldRebuildLibraries) {
