@@ -1,5 +1,7 @@
 # How linking works: https://stackoverflow.com/questions/62871714/node-gyp-not-linking-libraries-correctly-on-macos
 # variables: https://github.com/nodejs/node-gyp/issues/1223
+# https://github.com/nodejs/node-gyp/issues/892
+# https://medium.com/devgorilla/node-gyp-support-in-alpine-linux-9374c6191140
 {
   'targets': [
     {
@@ -28,6 +30,7 @@
         }],
         
         ['OS=="linux"', {
+          # for alpine: export LD_LIBRARY_PATH=opencv-prebuilt/linux/lib
           'libraries': [
             "-lopencv_core", "-lopencv_imgcodecs", "-lopencv_imgproc", "-lopencv_ml",
             "-L<(module_root_dir)/opencv-prebuilt/linux/lib/"
