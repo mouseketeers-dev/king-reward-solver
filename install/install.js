@@ -15,7 +15,7 @@ function main() {
     "node-gyp rebuild",
     { maxBuffer: Infinity }, function (err, stdout, stderr) {
       const _err = err || stderr;
-      if (_err) log.error(_err);
+      if (_err) throw(_err);
     }
   );
 
