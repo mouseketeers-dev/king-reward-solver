@@ -30,10 +30,8 @@
         }],
         
         ['OS=="linux"', {
-          # for alpine: export LD_LIBRARY_PATH=opencv-prebuilt/linux/lib
           'libraries': [
-            "-lopencv_core", "-lopencv_imgcodecs", "-lopencv_imgproc", "-lopencv_ml",
-            "-L<(module_root_dir)/opencv-prebuilt/linux/lib/"
+            "-lopencv_core", "-lopencv_imgcodecs", "-lopencv_imgproc", "-lopencv_ml"
           ]
         }],
         
