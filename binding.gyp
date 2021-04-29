@@ -31,7 +31,6 @@
         
         ['OS=="linux"', {
           'libraries': [
-            "-L<(module_root_dir)/opencv-prebuilt/linux/lib/",
             "-lopencv_core", "-lopencv_imgcodecs", "-lopencv_imgproc", "-lopencv_ml"
           ]
         }],
@@ -43,8 +42,8 @@
             'MACOSX_DEPLOYMENT_TARGET': '10.7'
           },
           'libraries': [
+            "-L<(module_root_dir)/opencv-prebuilt/mac/lib/",
             "-lopencv_core", "-lopencv_imgcodecs", "-lopencv_imgproc", "-lopencv_ml",
-            "-L<(module_root_dir)/opencv-prebuilt/mac/lib/"
           ]
         }]
       ]
