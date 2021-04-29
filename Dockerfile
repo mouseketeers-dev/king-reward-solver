@@ -1,21 +1,27 @@
 ARG NODE_VERSION=16
 ARG OS=buster
+ARG BASE_IMAGE_TAG=node:${NODE_VERSION}-${OS}-slim
+
+#### Stage BASE ######################################################################################################
+FROM $BASE_IMAGE_TAG AS base
+RUN apt-get update && apt-get -q install -y --no-install-recommends \ 
+    libpng-dev 
 
 #### Stage OPENCV ######################################################################################################
-FROM node:${NODE_VERSION}-${OS} AS opencv
+FROM base AS opencv
 
 ARG SRC_DIR=/tmp
 ARG OPENCV_VERSION=4.5.1
 
 # install build dependencies
-RUN apt-get update \
-    && apt-get -q install -y --no-install-recommends \ 
-        build-essential \
-        cmake \
-        git \
-        wget \
-        unzip \
-        libpng-dev
+RUN apt-get -q install -y --no-install-recommends \ 
+    build-essential \
+    cmake \
+    git \
+    wget \
+    unzip \
+    ca-certificates \
+    python3
 
 # download opencv source
 RUN mkdir -p $SRC_DIR \
@@ -53,14 +59,8 @@ RUN mkdir -p $SRC_DIR/opencv/build \
     && apt-get -qq autoremove \
     && apt-get -qq clean
     
-#### Stage BASE ########################################################################################################
-FROM node:${NODE_VERSION}-${OS} AS test
-
-RUN apt-get update \
-    && apt-get -q install -y --no-install-recommends \ 
-          python3
-   
-COPY --from=opencv /usr/local/lib/libopencv* /usr/local/lib/
+#### Stage BUILD #######################################################################################################
+FROM opencv AS build
 
 WORKDIR /usr/king-reward-solver
 
@@ -68,6 +68,14 @@ COPY . .
 
 ENV KING_REWARD_SOLVER_ENABLE_REBUILD=1
 RUN yarn
+
+#### Stage TEST ########################################################################################################
+FROM base AS test
+   
+WORKDIR /usr/king-reward-solver
+
+COPY --from=build /usr/local/lib/libopencv* /usr/local/lib/
+COPY --from=build /usr/king-reward-solver .
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
