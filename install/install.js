@@ -1,15 +1,14 @@
-const log = require('npmlog');
 const child_process = require('child_process');
 
 const shouldRebuildLibraries = process.env.KING_REWARD_SOLVER_ENABLE_REBUILD;
 
 function main() {
   if (!shouldRebuildLibraries) {
-    log.info("install", "Using prebuilt libraries.");
+    console.log("install: Using prebuilt libraries.");
     return;
   }
 
-  log.info("install", "Building king-reward-solver...");
+  console.log("install: Building king-reward-solver...");
 
   const child = child_process.exec(
     "node-gyp rebuild",

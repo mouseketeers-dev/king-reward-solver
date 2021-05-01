@@ -12,11 +12,8 @@
     "node-addon-api": "^1.1.0"
   },
   "gypfile": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Native OpenCV module to solve King's Rewards in MouseHunt",
   "author": "kentnek",
-  "license": "ISC",
-  "dependencies": {
-    "npmlog": "^4.1.2"
-  }
+  "license": "ISC"
 }

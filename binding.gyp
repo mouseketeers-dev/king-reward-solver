@@ -8,7 +8,7 @@
       'target_name': 'king-reward-solver-native',
       'sources': [ 'src/king_reward_solver.cc', 'src/captcha.cc' ],
       'include_dirs': [
-        "opencv-prebuilt/include",
+        "src/include",
         "<!@(node -p \"require('node-addon-api').include\")"
       ],
       'dependencies': ["<!(node -p \"require('node-addon-api').gyp\")"],
